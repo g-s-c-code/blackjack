@@ -1,0 +1,210 @@
+﻿@page "/blackjack"
+@using blackjack.Structs;
+
+<PageTitle>Blackjack</PageTitle>
+<h1>Blackjack</h1>
+<div class="text-danger display-3">Dealer</div>
+@foreach (var card in dealerCards)
+{
+    <span class="text-danger display-3">@card.Symbol</span>
+}
+<span class="text-danger display-3">&nbsp;@dealerScore</span>
+<div class="text-success display-3 mt-4">Player</div>
+@foreach (var card in playerCards)
+{
+    <span class="text-success display-3">@card.Symbol</span>
+}
+<span class="text-success display-3">&nbsp;@playerScore</span>
+<div class="mt-4">
+    @if (!stay)
+    {
+        <button class="btn btn-success" @onclick="(() => DealCard(ref playerCards, PlayerTypes.Player))">
+            Draw Card
+        </button>
+        <button class="btn btn-danger" @onclick="Stay">Stay</button>
+    }
+    else
+    {
+        <button class="btn btn-primary" @onclick="NewGame">
+            New Game
+        </button>
+    }
+</div>
+<div class="text-primary display-1">@winner</div>
+
+@code {
+    string[] unicodeCards = new string[]
+    {
+        "🂡", "🂢", "🂣", "🂤", "🂥", "🂦", "🂧", "🂨", "🂩", "🂪", "🂫", "🂭", "🂮",  // Spades
+        "🂱", "🂲", "🂳", "🂴", "🂵", "🂶", "🂷", "🂸", "🂹", "🂺", "🂻", "🂽", "🂾",  // Hearts
+        "🃁", "🃂", "🃃", "🃄", "🃅", "🃆", "🃇", "🃈", "🃉", "🃊", "🃋", "🃍", "🃎",  // Diamonds
+        "🃑", "🃒", "🃓", "🃔", "🃕", "🃖", "🃗", "🃘", "🃙", "🃚", "🃛", "🃝", "🃞"   // Clubs
+    };
+
+    private const int numberOfCards = 52;
+    private bool stay = false;
+    private Card[] deck = new Card[numberOfCards];
+    private Card[] playerCards = new Card[0];
+    private Card[] dealerCards = new Card[0];
+    private int playerScore = 0;
+    private int dealerScore = 0;
+    private string winner = string.Empty;
+
+    private enum PlayerTypes
+    {
+        Dealer,
+        Player
+    }
+
+    private enum Results
+    {
+        Unknown,
+        Blackjack,
+        PlayerLost,
+        DealerLost
+    }
+
+    private Results result = Results.Unknown;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized(); // Add this line as a good practice.
+        deck = ShuffleDeck(CreateDeck());
+        NewGame(); // Deal initial cards for both player and dealer
+        var cards = new Card[numberOfCards];
+        var index = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 13; j++)
+            {
+                var value = j > 9 ? 10 : j + 1;
+                cards[index] = new Card(unicodeCards[j + (i * 13)], value);
+                index++;
+            }
+        }
+
+        Random rand = new Random();
+        for (int i = cards.Length - 1; i > 0; i--)
+        {
+            int j = rand.Next(0, i + 1);
+            Card temp = cards[i];
+            cards[i] = cards[j];
+            cards[j] = temp;
+        }
+
+        deck = cards;
+    }
+
+    void NewGame()
+    {
+        deck = ShuffleDeck(CreateDeck());
+        playerCards = new Card[0];
+        dealerCards = new Card[0];
+        playerScore = 0;
+        dealerScore = 0;
+        stay = false;
+        winner = string.Empty;
+        result = Results.Unknown;
+        DealCard(ref dealerCards, PlayerTypes.Dealer, 2);
+        DealCard(ref playerCards, PlayerTypes.Player, 2);
+    }
+
+    void DealCard(ref Card[] cards, PlayerTypes playerType, int takeCards = 1)
+    {
+        cards = cards.Concat(deck.Take(takeCards)).ToArray();
+        deck = deck.Skip(takeCards).ToArray();
+        if (playerType.Equals(PlayerTypes.Player))
+        {
+            CalculateScore(cards, out playerScore);
+            if (playerScore == 21 && cards.Length == 2)
+            {
+                result = Results.Blackjack;
+                Stay();
+            }
+            else if (playerScore > 21)
+            {
+                result = Results.PlayerLost;
+                Stay();
+            }
+        }
+        else
+        {
+            if (!stay) cards[0].IsHidden = true;
+            CalculateScore(cards, out dealerScore);
+            if (dealerScore == 21 && cards.Length == 2 && stay)
+            {
+                result = Results.Blackjack;  // This now signifies either the player's or dealer's Blackjack.
+            }
+            else if (dealerScore > 21) result = Results.DealerLost;
+        }
+    }
+
+    void CalculateScore(Card[] cards, out int score)
+    {
+        score = cards.Sum(c => c.Value);
+        var aces = cards.Count(c => c.Value == 1 && !c.IsHidden);
+        if (score + aces * 10 <= 21) score += aces * 10;
+    }
+
+    void Stay()
+    {
+        stay = true;
+        dealerCards[0].IsHidden = false;
+        if (result == Results.Unknown) DrawDealerCards();
+        DetermineWinner();
+    }
+
+    void DrawDealerCards()
+    {
+        while (dealerScore < 17 || (dealerScore == 17 && dealerCards.Any(card => card.Value == 1)))
+        {
+            DealCard(ref dealerCards, PlayerTypes.Dealer);
+        }
+    }
+
+    void DetermineWinner()
+    {
+        if (result == Results.Blackjack && playerScore == 21 && playerCards.Length == 2)
+            winner = "Player wins with Blackjack";
+        else if (result == Results.Blackjack && dealerScore == 21 && dealerCards.Length == 2)
+            winner = "Dealer wins with Blackjack";
+        else if (result == Results.PlayerLost)
+            winner = "Dealer wins";
+        else if (result == Results.DealerLost)
+            winner = "Player wins";
+        else if (playerScore > dealerScore)
+            winner = "Player wins";
+        else if (playerScore < dealerScore)
+            winner = "Dealer wins";
+        else
+            winner = "Draw";
+    }
+
+    Card[] CreateDeck()
+    {
+        var cards = new Card[numberOfCards];
+        var index = 0;
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 13; j++)
+            {
+                var value = j > 9 ? 10 : j + 1;
+                cards[index] = new Card(unicodeCards[i * 13 + j], value);
+                index++;
+            }
+        return cards;
+    }
+
+    Card[] ShuffleDeck(Card[] cards)
+    {
+        var random = new Random();
+        for (int i = cards.Length - 1; i > 0; i--)
+        {
+            int j = random.Next(0, i + 1);
+            Card temp = cards[i];
+            cards[i] = cards[j];
+            cards[j] = temp;
+        }
+        return cards;
+    }
+
+}

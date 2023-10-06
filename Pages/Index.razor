@@ -1,57 +1,38 @@
 ﻿@page "/"
-@using blackjack.Structs
+@using blackjack.Structs;
+@inject NavigationManager NavManager
 
-<PageTitle>Blackjack</PageTitle>
+<PageTitle>Welcome</PageTitle>
 
 <div class="container mt-5">
-    <h1 class="text-uppercase mb-4">Blackjack</h1>
-    <p class="lead">Simple, yet thrilling, Blackjack is one of the most popular casino card games worldwide. Often known as "21"; the goal is to beat the dealer without going over 21 points.</p>
-    <h3 class="text-uppercase mb-1">Rules:</h3>
-    <ul class="mb-4">
-        <li><strong>Objective</strong>: Reach a card total closer to 21 than the dealer without exceeding it.</li>
-        <li><strong>Card Values</strong>: Numbered cards (2-10) count as face value, face cards (Jacks, Queens, Kings) count as 10, and Aces can count as either 1 or 11.</li>
-        <li><strong>Starting Deal</strong>: Each player receives two cards, typically one face up and one face down. The dealer also receives two cards with one face up.</li>
-        <li><strong>Hit or Stand</strong>: Players decide whether to "hit" (take an additional card) or "stand" (stick with their current total). Remember, going over 21 is a "bust", and you lose the round instantly!</li>
-        <li><strong>Dealer's Turn</strong>: Once players finish, the dealer reveals their hidden card and must hit until their hand is 17 or higher.</li>
-        <li><strong>Winning the Game</strong>: Players closer to 21 than the dealer win. If the dealer busts, all remaining players win. Ties (pushes) occur if both the dealer and player have the same total.</li>
-    </ul>
-    <p class="lead mb-5">Dive in, play smart, and may the odds be ever in your favor!</p>
-    @{
-        int cardsPerRow = 13;
-        for (int i = 0; i < unicodeCards.Length; i += cardsPerRow)
+    <h1 class="text-uppercase text-center">- Blackjack -</h1>
+    <div class="text-center display-1">
+        @for (int i = 0; i < 13; i++)
         {
-            <p>
-                @for (int j = i; j < i + cardsPerRow && j < unicodeCards.Length; j++)
-                {
-                    <span class="display-1">@($"{unicodeCards[j]}")</span>
-                }
-            </p>
+            <span>@($"{unicodeCards[i]} ")</span>
         }
-    }
+    </div>
+    <p class="lead mt-5">Simple, yet thrilling, blackjack is one of the most popular casino card games worldwide. Often known as "21"; the goal is to beat the dealer without going over 21 points.</p>
 </div>
-
-<!--
-    while (position < numberOfCards)
-        {
-            var idx = random.Next(cards.Length - 1);
-            Card card = cards[idx];
-            shuffled[position] = card;
-
-
-
-            Card[] tempArray = new Card[cards.Length - 1];
-            // Copy elements before the index to remove
-            Array.Copy(cards, 0, tempArray, 0, idx);
-            // Copy elements after the index to remove
-            Array.Copy(cards, idx + 1, tempArray, idx, cards.Length - idx - 1);
-            // Overwrite original array (optional)
-            cards = tempArray;
-
-
-
-            position++;
-        }
--->
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h3 class="text-uppercase">Rules:</h3>
+            <ul class="text-nowrap">
+                <li><strong>OBJECTIVE</strong>: Aim for a card total close to 21 but don't exceed it.</li>
+                <li><strong>VALUES</strong>: Cards 2-10 are face value, face cards are 10, and Aces are 1 or 11.</li>
+                <li><strong>DEAL</strong>: Players get two cards, one hidden. Dealer gets two with one exposed.</li>
+                <li><strong>HIT OR STAND</strong>: Players can "hit" for an extra card or "stand". Over 21 is a "bust".</li>
+                <li><strong>DEALERS TURN</strong>: Dealer reveals the hidden card and hits until 17 or higher.</li>
+                <li><strong>HOW TO WIN</strong>: Get closer to 21 than the dealer. Dealer's bust means players win. Same totals tie.</li>
+            </ul>
+            <p class="lead">Dive in, play smart, and may the odds be ever in your favor!</p>
+        </div>
+        <div class="col">
+            <button class="btn btn-sm btn-dark m-3 mt-1" @onclick="NavigateToBlackjack">PLAY</button>
+        </div>
+    </div>
+</div>
 
 @code {
     string[] unicodeCards = new string[]
@@ -61,29 +42,8 @@
         "🃁", "🃂", "🃃", "🃄", "🃅", "🃆", "🃇", "🃈", "🃉", "🃊", "🃋", "🃍", "🃎",  // Diamonds
         "🃑", "🃒", "🃓", "🃔", "🃕", "🃖", "🃗", "🃘", "🃙", "🃚", "🃛", "🃝", "🃞"   // Clubs
     };
-
-    private const int numberOfCards = 52;
-    private bool stay = false;
-    private Card[] deck = new Card[numberOfCards];
-    private Card[] playerCards = new Card[0];
-    private Card[] dealerCards = new Card[0];
-    private int playerScore = 0;
-    private int dealerScore = 0;
-    private string winner = string.Empty;
-
-    private enum PlayerTypes
+    void NavigateToBlackjack()
     {
-        Dealer,
-        Player
+        NavManager.NavigateTo("/Blackjack");
     }
-
-    private enum Results
-    {
-        Unknown,
-        Blackjack,
-        PlayerLost,
-        DealerLost
-    }
-
-    private Results result = Results.Unknown;
 }
