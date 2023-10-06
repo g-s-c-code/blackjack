@@ -2,18 +2,19 @@
 @using blackjack.Structs;
 
 <PageTitle>Blackjack</PageTitle>
+<div class="container m-3">
 <h1>Blackjack</h1>
 <div class="text-danger display-3">Dealer</div>
-@foreach (var card in dealerCards)
-{
-    <span class="text-danger display-3">@card.Symbol</span>
-}
+    @foreach (var card in dealerCards)
+    {
+        <span class="text-danger display-3">@card.Symbol</span>
+    }
 <span class="text-danger display-3">&nbsp;@dealerScore</span>
 <div class="text-success display-3 mt-4">Player</div>
-@foreach (var card in playerCards)
-{
-    <span class="text-success display-3">@card.Symbol</span>
-}
+    @foreach (var card in playerCards)
+    {
+        <span class="text-success display-3">@card.Symbol</span>
+    }
 <span class="text-success display-3">&nbsp;@playerScore</span>
 <div class="mt-4">
     @if (!stay)
@@ -31,7 +32,7 @@
     }
 </div>
 <div class="text-primary display-1">@winner</div>
-
+</div>
 @code {
     string[] unicodeCards = new string[]
     {
