@@ -1,38 +1,75 @@
 ﻿@page "/blackjack"
 @using blackjack.Structs;
-
 <PageTitle>Blackjack</PageTitle>
-<div class="container m-3">
-<h1>Blackjack</h1>
-<div class="text-danger display-3">Dealer</div>
-    @foreach (var card in dealerCards)
-    {
-        <span class="text-danger display-3">@card.Symbol</span>
-    }
-<span class="text-danger display-3">&nbsp;@dealerScore</span>
-<div class="text-success display-3 mt-4">Player</div>
-    @foreach (var card in playerCards)
-    {
-        <span class="text-success display-3">@card.Symbol</span>
-    }
-<span class="text-success display-3">&nbsp;@playerScore</span>
-<div class="mt-4">
-    @if (!stay)
-    {
-        <button class="btn btn-success" @onclick="(() => DealCard(ref playerCards, PlayerTypes.Player))">
-            Draw Card
-        </button>
-        <button class="btn btn-danger" @onclick="Stay">Stay</button>
-    }
-    else
-    {
-        <button class="btn btn-primary" @onclick="NewGame">
-            New Game
-        </button>
-    }
+<div class="container mt-1">
+
+    <h1 class="text-center font-weight-bold p-1" style="color: #333; letter-spacing: 3px;">BLACKJACK</h1>
+
+    <!-- Table Surface -->
+    <div class="p-1 rounded">
+
+        <!-- Dealer Section -->
+        <div class="card mb-1 border-2 shadow-lg">
+            <div class="card-header font-weight-bold text-uppercase">Dealer</div>
+            <div class="card-body text-center">
+                <div class="d-inline-block">
+                    @foreach (var card in dealerCards)
+                    {
+                        <div class="card-container">
+                            <span class="card-item display-3">@card.Symbol</span>
+                        </div>
+                    }
+                </div>
+                <div class="display-6 mt-2">@dealerScore</div>
+            </div>
+        </div>
+
+        <!-- Chip Tray & Card Shoe -->
+
+        <!-- Player Section -->
+        <div class="card mb-1 border-2 shadow-lg">
+            <div class="card-header font-weight-bold text-uppercase">Player</div>
+            <div class="card-body text-center">
+                <div class="d-inline-block">
+                    @foreach (var card in playerCards)
+                    {
+                        <div class="card-container">
+                            <span class="card-item display-3">@card.Symbol</span>
+                        </div>
+                    }
+                </div>
+                <div class="display-6 mt-2">@playerScore</div>
+            </div>
+        </div>
+
+        <!-- Betting area with placeholder chips for the player -->
+ 
+
+        <!-- Buttons -->
+        <div class="text-center m-2">
+            @if (!stay)
+            {
+                <button class="btn btn-secondary me-1" @onclick="(() => DealCard(ref playerCards, PlayerTypes.Player))">
+                    Draw Card
+                </button>
+                <button class="btn btn-secondary" @onclick="Stay">Stay</button>
+            }
+            else
+            {
+                <button class="btn btn-secondary" @onclick="NewGame">
+                    New Game
+                </button>
+            }
+        </div>
+    </div>
+
+    <!-- Winner Display -->
+    <div class="text-center">
+        <h1 class="text-muted">@winner</h1>
+    </div>
 </div>
-<div class="text-primary display-1">@winner</div>
-</div>
+
+
 @code {
     string[] unicodeCards = new string[]
     {
