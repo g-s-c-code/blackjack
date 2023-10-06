@@ -4,17 +4,17 @@
 <PageTitle>Blackjack</PageTitle>
 
 <div class="container mt-5">
-    <h1 class="mb-4">Blackjack</h1>
-    <p class="lead">Blackjack, often known as "21", is one of the most popular casino card games worldwide. The game is simple yet thrilling, aiming to beat the dealer without going over 21 points.</p>
-    <h3 class="mb-3">Basic Rules:</h3>
-    <ol class="mb-4">
+    <h1 class="text-uppercase mb-4">Blackjack</h1>
+    <p class="lead">Simple, yet thrilling, Blackjack is one of the most popular casino card games worldwide. Often known as "21"; the goal is to beat the dealer without going over 21 points.</p>
+    <h3 class="text-uppercase mb-1">Rules:</h3>
+    <ul class="mb-4">
         <li><strong>Objective</strong>: Reach a card total closer to 21 than the dealer without exceeding it.</li>
         <li><strong>Card Values</strong>: Numbered cards (2-10) count as face value, face cards (Jacks, Queens, Kings) count as 10, and Aces can count as either 1 or 11.</li>
         <li><strong>Starting Deal</strong>: Each player receives two cards, typically one face up and one face down. The dealer also receives two cards with one face up.</li>
         <li><strong>Hit or Stand</strong>: Players decide whether to "hit" (take an additional card) or "stand" (stick with their current total). Remember, going over 21 is a "bust", and you lose the round instantly!</li>
         <li><strong>Dealer's Turn</strong>: Once players finish, the dealer reveals their hidden card and must hit until their hand is 17 or higher.</li>
         <li><strong>Winning the Game</strong>: Players closer to 21 than the dealer win. If the dealer busts, all remaining players win. Ties (pushes) occur if both the dealer and player have the same total.</li>
-    </ol>
+    </ul>
     <p class="lead mb-5">Dive in, play smart, and may the odds be ever in your favor!</p>
     @{
         int cardsPerRow = 13;
@@ -23,7 +23,7 @@
             <p>
                 @for (int j = i; j < i + cardsPerRow && j < unicodeCards.Length; j++)
                 {
-                    <span class="fs-1">@($"{unicodeCards[j]} ")</span>
+                    <span class="display-1">@($"{unicodeCards[j]}")</span>
                 }
             </p>
         }
