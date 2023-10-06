@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using blackjack.Structs
 
 <PageTitle>Blackjack</PageTitle>
 
@@ -20,14 +21,19 @@
 
 <p>Dive in, play smart, and may the odds be ever in your favor!</p>
 
-<p class="d-inline-flex fs-1">
-@foreach (string card in unicodeCards)
-{
-
-    @($"{card} ")
-
+@{
+    int cardsPerRow = 13;
+    for (int i = 0; i < unicodeCards.Length; i += cardsPerRow)
+    {
+    <p>
+        @for (int j = i; j < i + cardsPerRow && j < unicodeCards.Length; j++)
+        {
+            <span class="fs-1">@($"{unicodeCards[j]} ")</span>
+        }
+    </p>
+    }
 }
-</p>
+
 @code {
     string[] unicodeCards = new string[]
     {
@@ -37,6 +43,28 @@
         "🃑", "🃒", "🃓", "🃔", "🃕", "🃖", "🃗", "🃘", "🃙", "🃚", "🃛", "🃝", "🃞"   // Clubs
     };
 
-    int numberOfCards = 52;
-    bool stay = false;
+    private const int numberOfCards = 52;
+    private bool stay = false;
+    private Card[] deck = new Card[numberOfCards];
+    private Card[] playerCards = new Card[0];
+    private Card[] dealerCards = new Card[0];
+    private int playerScore = 0;
+    private int dealerScore = 0;
+    private string winner = string.Empty;
+
+    private enum PlayerTypes
+    {
+        Dealer,
+        Player
+    }
+
+    private enum Results
+    {
+        Unknown,
+        Blackjack,
+        PlayerLost,
+        DealerLost
+    }
+
+    private Results result = Results.Unknown;
 }
