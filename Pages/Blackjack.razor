@@ -1,10 +1,29 @@
-﻿@page "/blackjack"
+﻿@page "/"
 @using blackjack.Structs;
 <PageTitle>Blackjack</PageTitle>
 <div class="container mt-1">
 
     <h1 class="text-center font-weight-bold p-1" style="color: #333; letter-spacing: 3px;">BLACKJACK</h1>
-
+    <button @onclick="ToggleInstructions" class="btn btn-sm btn-secondary m-2">
+        @(showInstructions ? "Hide Instructions" : "Instructions")
+    </button>
+    @if (showInstructions)
+    {
+            <div class="row">
+                <div class="col">
+                    <h3 class="text-uppercase">Rules:</h3>
+                    <ul class="text-nowrap">
+                        <li><strong>OBJECTIVE</strong>: Aim for a card total close to 21 but don't exceed it.</li>
+                        <li><strong>VALUES</strong>: Cards 2-10 are face value, face cards are 10, and Aces are 1 or 11.</li>
+                        <li><strong>DEAL</strong>: Players get two cards, one hidden. Dealer gets two with one exposed.</li>
+                        <li><strong>HIT OR STAND</strong>: Players can "hit" for an extra card or "stand". Over 21 is a "bust".</li>
+                        <li><strong>DEALERS TURN</strong>: Dealer reveals the hidden card and hits until 17 or higher.</li>
+                        <li><strong>HOW TO WIN</strong>: Get closer to 21 than the dealer. Dealer's bust means players win. Same totals tie.</li>
+                    </ul>
+                    <p class="lead">Dive in, play smart, and may the odds be ever in your favor!</p>
+                </div>
+            </div>
+    }
     <!-- Table Surface -->
     <div class="p-1 rounded">
 
@@ -71,6 +90,9 @@
 
 
 @code {
+    private void ToggleInstructions() => showInstructions = !showInstructions;
+    private bool showInstructions = false;
+
     string[] unicodeCards = new string[]
     {
         "🂡", "🂢", "🂣", "🂤", "🂥", "🂦", "🂧", "🂨", "🂩", "🂪", "🂫", "🂭", "🂮",  // Spades
