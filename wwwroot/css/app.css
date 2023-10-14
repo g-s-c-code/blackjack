@@ -1,3 +1,10 @@
+body {
+    font-family: Verdana, sans-serif;
+    background-color: #222;
+    margin: 3rem;
+
+}
+
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -18,7 +25,7 @@
     }
 
 .blazor-error-boundary {
-    background: [..data URI..] no-repeat 1rem/1.8rem, #b32121;
+    background: no-repeat 1rem/1.8rem, #b32121;
     padding: 1rem 1rem 1rem 3.7rem;
     color: white;
 }
@@ -59,10 +66,6 @@
         content: var(--blazor-load-percentage-text, "Loading");
     }
 
-.card-deck {
-    perspective: 1500px;
-}
-
 .card-container {
     display: inline-block;
     transform-origin: center;
@@ -70,17 +73,9 @@
     transition: transform 0.3s, z-index 1s;
     position: relative;
     z-index: 0;
-    text-align: center;
     background-color: #fff;
-}
-
-.card-item {
-    display: block;
-    transform-style: preserve-3d;
-    font-size: 90px;
-    line-height: 1;
-    border-radius: 5px;
-    color: #333;
+    margin: 0px;
+    padding: 0px;
 }
 
 .card-container:hover {
@@ -88,3 +83,67 @@
     z-index: 1;
 }
 
+.card-item {
+    display: block;
+    line-height: 1;
+    border-radius: 5px;
+    color: #333;
+}
+
+.game-container-1 {
+    height: 20vh;
+    background-image: linear-gradient(360deg, #2b4b34, #19301e);
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    border: 5px ridge SaddleBrown;
+    border-radius: 7px 7px 0px 0px;
+    border-bottom: none;
+}
+
+.game-container-2 {
+    height: 60vh;
+    background-image: linear-gradient(180deg, #2b4b34, #19301e);
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+    border: 5px ridge SaddleBrown;
+    border-top: none;
+    border-bottom-right-radius: 750px;
+    border-bottom-left-radius: 750px;
+}
+
+/* Smaller screens */
+@media (max-width: 767.99px) {
+    * {
+        font-size: 14px;
+    }
+
+    .card-item {
+        margin: -3.5px -1.5px -0.5px -1.5px;
+    }
+}
+
+/* Medium screens */
+@media (min-width: 768px) and (max-width: 992px) {
+    * {
+        font-size: 16px;
+    }
+
+    .card-item {
+        margin: -5px -1.5px -0.5px -1.5px;
+    }
+}
+
+/* Larger screens */
+@media (min-width: 993px) {
+    * {
+        font-size: 20px;
+    }
+
+    .card-item {
+        margin: -8px -3px -1px -3px;
+    }
+}

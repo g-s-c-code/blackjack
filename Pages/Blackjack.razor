@@ -1,93 +1,128 @@
 ﻿@page "/"
 @using blackjack.Structs;
 <PageTitle>Blackjack</PageTitle>
-<div class="container mt-1">
 
-    <h1 class="text-center font-weight-bold p-1" style="color: #333; letter-spacing: 3px;">BLACKJACK</h1>
-    <button @onclick="ToggleInstructions" class="btn btn-sm btn-secondary m-2">
-        @(showInstructions ? "Hide Instructions" : "Instructions")
-    </button>
-    @if (showInstructions)
-    {
-            <div class="row">
-                <div class="col p-1 m-3">
-                    <h3 class="text-uppercase">Rules:</h3>
-                    <ul class="text-nowrap">
-                        <li><strong>OBJECTIVE</strong>: Aim for a card total close to 21 but don't exceed it.</li>
-                        <li><strong>VALUES</strong>: Cards 2-10 are face value, face cards are 10, and Aces are 1 or 11.</li>
-                        <li><strong>DEAL</strong>: Players get two cards, one hidden. Dealer gets two with one exposed.</li>
-                        <li><strong>HIT OR STAND</strong>: Players can "hit" for an extra card or "stand". Over 21 is a "bust".</li>
-                        <li><strong>DEALERS TURN</strong>: Dealer reveals the hidden card and hits until 17 or higher.</li>
-                        <li><strong>HOW TO WIN</strong>: Get closer to 21 than the dealer. Dealer's bust means players win. Same totals tie.</li>
-                    </ul>
-                    <p class="lead">Dive in, play smart, and may the odds be ever in your favor!</p>
-                </div>
-            </div>
-    }
-    <!-- Table Surface -->
-    <div class="p-1 rounded">
-
-        <!-- Dealer Section -->
-        <div class="card mb-1 border-2 shadow-lg">
-            <div class="card-header font-weight-bold text-uppercase">Dealer</div>
-            <div class="card-body text-center">
-                <div class="d-inline-block">
-                    @foreach (var card in dealerCards)
-                    {
-                        <div class="card-container">
-                            <span class="card-item display-3">@card.Symbol</span>
-                        </div>
-                    }
-                </div>
-                <div class="display-6 mt-2">@dealerScore</div>
-            </div>
+<div class="container-fluid game-container-1">
+    <div class="row">
+        <div class="col-4 text-start">
+            <small class="">Win Streak: @winStreak</small>
         </div>
-
-        <!-- Chip Tray & Card Shoe -->
-
-        <!-- Player Section -->
-        <div class="card mb-1 border-2 shadow-lg">
-            <div class="card-header font-weight-bold text-uppercase">Player</div>
-            <div class="card-body text-center">
-                <div class="d-inline-block">
-                    @foreach (var card in playerCards)
-                    {
-                        <div class="card-container">
-                            <span class="card-item display-3">@card.Symbol</span>
-                        </div>
-                    }
-                </div>
-                <div class="display-6 mt-2">@playerScore</div>
-            </div>
+        <div class="col-4 font-monospace">
+            <h1 class="m-0 fs-2 text-black fw-bold"><span class="display-6 text-danger">B</span>lack<span class="display-6 text-danger">j</span>ack</h1>
+            <small class="text-warning m-0" style="letter-spacing: 0.2rem;">PAYS 3 10 2</small>
         </div>
-
-        <!-- Betting area with placeholder chips for the player -->
- 
-
-        <!-- Buttons -->
-        <div class="text-center m-2">
-            @if (!stay)
-            {
-                <button class="btn btn-secondary me-1" @onclick="(() => DealCard(ref playerCards, PlayerTypes.Player))">
-                    Draw Card
-                </button>
-                <button class="btn btn-secondary" @onclick="Stay">Stay</button>
-            }
-            else
-            {
-                <button class="btn btn-secondary" @onclick="NewGame">
-                    New Game
-                </button>
-            }
+        <div class="col-4 text-end p-0">
+            <button @onclick="ToggleInstructions" class="btn btn-sm text-secondary border-0 text-uppercase" style="font-size: 0.6rem;">
+                @(showInstructions ? "Hide" : "Instructions")
+            </button>
         </div>
-    </div>
-
-    <!-- Winner Display -->
-    <div class="text-center">
-        <h1 class="text-muted">@winner</h1>
     </div>
 </div>
 
+<div class="container-fluid game-container-2">
+    <div class="row d-flex justify-content-center align-items-center">
+        <div class="col-4">
+
+            <div class="row m-3 p-2">
+                <div class="col-2"></div>
+                <div class="col-10 d-flex">
+                </div>
+            </div>
+            <div class="row m-3 p-2">
+                <div class="col-2"></div>
+                <div class="col-10 d-flex">
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-4">
+
+            <div class="row mt-1">
+                <div class="col">
+                    <div class="d-inline-block">
+                        <h6 class="m-1 text-danger">Dealer</h6>
+                        <h6 class="m-1">@dealerScore</h6>
+                        @foreach (var card in dealerCards)
+                        {
+                            <div class="card-container m-1">
+                                <span class="card-item display-3 @(Array.IndexOf(unicodeCards, card.Symbol) >= 13 && Array.IndexOf(unicodeCards, card.Symbol) <= 38 ? "text-danger" : "text-black")">@card.Symbol</span>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    ---
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="d-inline-block">
+                        @foreach (var card in playerCards)
+                        {
+                            <div class="card-container m-1">
+                                <span class="card-item display-3 @(Array.IndexOf(unicodeCards, card.Symbol) >= 13 && Array.IndexOf(unicodeCards, card.Symbol) <= 38 ? "text-danger" : "text-black")">@card.Symbol</span>
+                            </div>
+                        }
+
+                    </div>
+                    <h6 class="m-1">@playerScore</h6>
+                    <h6 class="m-1 text-primary">Player</h6>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-4">
+
+            <div class="row m-3">
+                <div class="col-6 text-center">
+                    <h3 class="text-white">@winner</h3>
+                </div>
+                <div class="col-6 d-flex">
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col">
+            @if (showInstructions)
+            {
+                <h6 class="text-uppercase">Rules:</h6>
+                <ul class="text-nowrap">
+                    <li><strong>OBJECTIVE</strong>: Aim for a card total close to 21 but don't exceed it.</li>
+                    <li><strong>VALUES</strong>: Cards 2-10 are face value, face cards are 10, and Aces are 1 or 11.</li>
+                    <li><strong>DEAL</strong>: Players get two cards, one hidden. Dealer gets two with one exposed.</li>
+                    <li><strong>HIT OR STAND</strong>: Players can "hit" for an extra card or "stand". Over 21 is a "bust".</li>
+                    <li><strong>DEALERS TURN</strong>: Dealer reveals the hidden card and hits until 17 or higher.</li>
+                    <li><strong>HOW TO WIN</strong>: Get closer to 21 than the dealer. Dealer's bust means players win. Same totals tie.</li>
+                </ul>
+                <p class="lead">Dive in, play smart, and may the odds be ever in your favor!</p>
+            }
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row mt-3">
+        <div class="col text-center">
+            @if (!stay)
+            {
+                <button class="btn btn-sm btn-success me-1" @onclick="(() => DealCard(ref playerCards, PlayerTypes.Player))">Draw</button>
+                <button class="btn btn-sm btn-success" @onclick="Stay">Stay</button>
+            }
+            else
+            {
+                <button class="btn btn-sm btn-success" @onclick="NewGame">New Game</button>
+            }
+        </div>
+    </div>
+</div>
 
 @code {
     private void ToggleInstructions() => showInstructions = !showInstructions;
@@ -109,6 +144,7 @@
     private int playerScore = 0;
     private int dealerScore = 0;
     private string winner = string.Empty;
+    private int winStreak = 0;
 
     private enum PlayerTypes
     {
@@ -225,20 +261,41 @@
     void DetermineWinner()
     {
         if (result == Results.Blackjack && playerScore == 21 && playerCards.Length == 2)
+        {
             winner = "Player wins with Blackjack";
+            winStreak++;
+        }
         else if (result == Results.Blackjack && dealerScore == 21 && dealerCards.Length == 2)
+        {
             winner = "Dealer wins with Blackjack";
+            winStreak = 0;
+        }
         else if (result == Results.PlayerLost)
+        {
             winner = "Dealer wins";
+            winStreak = 0;
+        }
         else if (result == Results.DealerLost)
+        {
             winner = "Player wins";
+            winStreak++;
+        }
         else if (playerScore > dealerScore)
+        {
             winner = "Player wins";
+            winStreak++;
+        }
         else if (playerScore < dealerScore)
+        {
             winner = "Dealer wins";
+            winStreak = 0;
+        }
         else
+        {
             winner = "Draw";
+        }
     }
+
 
     Card[] CreateDeck()
     {
