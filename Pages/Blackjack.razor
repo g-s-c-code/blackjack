@@ -10,17 +10,22 @@
 </div>
 <div class="container-fluid game-container-1">
     <div class="row">
-        <div class="col-4 text-start">
-            <small class="">Win Streak: @winStreak</small>
-        </div>
-        <div class="col-4 ">
-            <div class="w-100 mt-3">
-                <img src="/images/chip-tray.png" class="w-50 rounded"/>
+        <div class="col-4 text-start text-warning">
+            <div class="row">
+                <small class="text-warning font-monospace opacity-75 m-0">Win Streak: @winStreak</small>
             </div>
-            <small class="text-warning font-monospace opacity-50 m-0" style="letter-spacing: 0.2rem;">PAYS 3 10 2</small>
+            <div class="row">
+                <small class="text-warning font-monospace opacity-75 m-0">Win Rate: @winStreak</small>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="w-100 mt-1">
+                <img src="/images/chip-tray.png" class="w-25 rounded" />
+            </div>
+            <small class="text-warning font-monospace opacity-25 m-0" style="letter-spacing: 0.2rem;">PAYS 3 10 2</small>
         </div>
         <div class="col-4 text-end p-0">
-            <button @onclick="ToggleInstructions" class="btn btn-sm text-secondary border-0 text-uppercase" style="font-size: 0.6rem;">
+            <button @onclick="ToggleInstructions" class="btn btn-sm game-button m-1">
                 @(showInstructions ? "Hide" : "Instructions")
             </button>
         </div>
@@ -29,48 +34,66 @@
 
 <div class="container-fluid game-container-2">
     <div class="row d-flex justify-content-center align-items-center">
-        <div class="col">
-            <div class="row mt-3">
-                <div class="col">
-                    <div class="d-inline-block">
-                        <h6 class="m-1 text-danger fw-bold opacity-75">Dealer</h6>
-                        <h6 class="m-1 text-danger fw-bold opacity-75">@dealerScore</h6>
-                        @foreach (var card in dealerCards)
-                        {
-                            <div class="card-container m-2">
-                                <span class="card-item display-1 @(Array.IndexOf(unicodeCards, card.Symbol) >= 13 && Array.IndexOf(unicodeCards, card.Symbol) <= 38 ? "text-danger" : "text-black")">@card.Symbol</span>
-                            </div>
-                        }
-                    </div>
-                </div>
+        <div class="row mt-3">
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <h6 class="m-1 text-danger fw-bold opacity-75">Dealer: </h6>
+                <h6 class="m-1 text-danger fw-bold opacity-75">@dealerScore </h6>
             </div>
-            <div class="row">
-                <div class="col d-flex justify-content-center">
-                    <h1 class="m-0 fs-2 text-muted opacity-50 p-1"> - <i class="bi-suit-spade-fill fs-1"></i> - <i class="bi-suit-heart-fill fs-1 text-danger opacity-50"></i> - <span class="display-6">B</span>lack<span class="display-6">J</span>ack - <i class="bi-suit-diamond-fill fs-1 text-danger opacity-50"></i> - <i class="bi-suit-club-fill fs-1"></i> - </h1>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <div class="d-inline-block">
-                        @foreach (var card in playerCards)
-                        {
-                            <div class="card-container m-2">
-                                <span class="card-item display-1 @(Array.IndexOf(unicodeCards, card.Symbol) >= 13 && Array.IndexOf(unicodeCards, card.Symbol) <= 38 ? "text-danger" : "text-black")">@card.Symbol</span>
-                            </div>
-                        }
+            <div class="col-4">
+                <div class="d-inline-block">
 
-                    </div>
-                    <h6 class="m-1 text-info fw-bold opacity-75">@playerScore</h6>
-                    <h6 class="m-1 text-info fw-bold opacity-75">Player</h6>
+                    @foreach (var card in dealerCards)
+                    {
+                        <div class="card-container m-2">
+                            <span class="card-item display-2 @(Array.IndexOf(unicodeCards, card.Symbol) >= 13 && Array.IndexOf(unicodeCards, card.Symbol) <= 38 ? "text-danger" : "text-black")">@card.Symbol</span>
+                        </div>
+                    }
                 </div>
+            </div>
+            <div class="col-4 d-flex justify-content-start align-items-center">
+                <h5 class="text-white">@winner</h5>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col d-flex justify-content-center">
+                <h1 class="m-0 fs-5 text-muted opacity-50 p-1"> - <i class="bi-suit-spade-fill fs-5"></i> - <i class="bi-suit-heart-fill fs-5 text-danger opacity-50"></i> - <span class="fs-4">B</span>lack<span class="fs-4">J</span>ack - <i class="bi-suit-diamond-fill fs-5 text-danger opacity-50"></i> - <i class="bi-suit-club-fill fs-5"></i> - </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <h6 class="m-1 text-black fw-bold opacity-75">Player:</h6>
+                <h6 class="m-1 text-black fw-bold opacity-75">@playerScore</h6>
+            </div>
+            <div class="col-4">
+                <div class="d-inline-block">
+                    @foreach (var card in playerCards)
+                    {
+                        <div class="card-container m-2">
+                            <span class="card-item display-2 @(Array.IndexOf(unicodeCards, card.Symbol) >= 13 && Array.IndexOf(unicodeCards, card.Symbol) <= 38 ? "text-danger" : "text-black")">@card.Symbol</span>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-4">
             </div>
         </div>
     </div>
+    <div class="row mt-5">
+        <div class="col text-center m-1">
+            @if (!stay)
+            {
+                <button class="btn btn-sm game-button" @onclick="(() => DealCard(ref playerCards, PlayerTypes.Player))">Hit</button>
+                <button class="btn btn-sm game-button" @onclick="Stay">Stand</button>
+            }
+            else
+            {
+                <button class="btn btn-sm btn-success game-button" @onclick="NewGame">New Game</button>
+            }
+        </div>
+    </div>
+</div>
 
-    <h3 class="text-white">@winner</h3>
-
-
-
+<div class="container">
     <div class="row">
         <div class="col">
             @if (showInstructions)
@@ -79,27 +102,12 @@
                 <ul class="text-nowrap">
                     <li><strong>OBJECTIVE</strong>: Aim for a card total close to 21 but don't exceed it.</li>
                     <li><strong>VALUES</strong>: Cards 2-10 are face value, face cards are 10, and Aces are 1 or 11.</li>
-                    <li><strong>DEAL</strong>: Players get two cards, one hidden. Dealer gets two with one exposed.</li>
-                    <li><strong>HIT OR STAND</strong>: Players can "hit" for an extra card or "stand". Over 21 is a "bust".</li>
-                    <li><strong>DEALERS TURN</strong>: Dealer reveals the hidden card and hits until 17 or higher.</li>
-                    <li><strong>HOW TO WIN</strong>: Get closer to 21 than the dealer. Dealer's bust means players win. Same totals tie.</li>
+                    <li><strong>DEAL</strong>: Players are dealt two cards, one hidden. The dealer is dealt two cards with one exposed.</li>
+                    <li><strong>HIT OR STAND</strong>: Players can 'hit' for an additional card or 'stand' to keep their current total. Going over 21 results in a 'bust'.</li>
+                    <li><strong>DEALERS TURN</strong>: The dealer reveals the hidden card and must 'hit' until they have 17 or more.</li>
+                    <li><strong>HOW TO WIN</strong>: Beat the dealer by having a higher total without busting. If the dealer busts, you win. Ties result in a push.</li>
                 </ul>
                 <p class="lead">Dive in, play smart, and may the odds be ever in your favor!</p>
-            }
-        </div>
-    </div>
-</div>
-<div class="container">
-    <div class="row mt-3">
-        <div class="col text-center">
-            @if (!stay)
-            {
-                <button class="btn btn-sm btn-success me-1" @onclick="(() => DealCard(ref playerCards, PlayerTypes.Player))">Draw</button>
-                <button class="btn btn-sm btn-success" @onclick="Stay">Stay</button>
-            }
-            else
-            {
-                <button class="btn btn-sm btn-success" @onclick="NewGame">New Game</button>
             }
         </div>
     </div>
@@ -243,39 +251,40 @@
     {
         if (result == Results.Blackjack && playerScore == 21 && playerCards.Length == 2)
         {
-            winner = "Player wins with Blackjack";
+            winner = "Blackjack! Player's natural win.";
             winStreak++;
         }
         else if (result == Results.Blackjack && dealerScore == 21 && dealerCards.Length == 2)
         {
-            winner = "Dealer wins with Blackjack";
+            winner = "Blackjack! Dealer wins.";
             winStreak = 0;
         }
         else if (result == Results.PlayerLost)
         {
-            winner = "Dealer wins";
+            winner = "Player busts! Dealer wins.";
             winStreak = 0;
         }
         else if (result == Results.DealerLost)
         {
-            winner = "Player wins";
+            winner = "Dealer busts! Player wins.";
             winStreak++;
         }
         else if (playerScore > dealerScore)
         {
-            winner = "Player wins";
+            winner = "Player wins!";
             winStreak++;
         }
         else if (playerScore < dealerScore)
         {
-            winner = "Dealer wins";
+            winner = "Dealer wins!";
             winStreak = 0;
         }
         else
         {
-            winner = "Draw";
+            winner = "Push.";
         }
     }
+
 
 
     Card[] CreateDeck()
