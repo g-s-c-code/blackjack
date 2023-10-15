@@ -1,7 +1,7 @@
 body {
     font-family: Verdana, sans-serif;
     background-color: #222;
-    margin: 3rem;
+    margin: 1rem 3rem 3rem 3rem;
 
 }
 
@@ -97,7 +97,7 @@ body {
     text-transform: uppercase;
     text-align: center;
     font-weight: bold;
-    border: 5px ridge SaddleBrown;
+    border: 5px ridge Sienna;
     border-radius: 7px 7px 0px 0px;
     border-bottom: none;
 }
@@ -109,14 +109,14 @@ body {
     text-transform: uppercase;
     text-align: center;
     font-weight: bold;
-    border: 5px ridge SaddleBrown;
+    border: 5px ridge Sienna;
     border-top: none;
     border-bottom-right-radius: 750px;
     border-bottom-left-radius: 750px;
 }
 
-/* Smaller screens */
-@media (max-width: 767.99px) {
+/* Extra Small screens (xs) */
+@media (max-width: 575.98px) {
     * {
         font-size: 14px;
     }
@@ -126,8 +126,8 @@ body {
     }
 }
 
-/* Medium screens */
-@media (min-width: 768px) and (max-width: 992px) {
+/* Small screens (sm) */
+@media (min-width: 576px) and (max-width: 767.98px) {
     * {
         font-size: 16px;
     }
@@ -137,8 +137,19 @@ body {
     }
 }
 
-/* Larger screens */
-@media (min-width: 993px) {
+/* Medium screens (md) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    * {
+        font-size: 18px; /* Adjusted this for better progression */
+    }
+
+    .card-item {
+        margin: -6px -2px -1px -2px; /* Sample adjustment */
+    }
+}
+
+/* Large screens (lg) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
     * {
         font-size: 20px;
     }
@@ -146,4 +157,31 @@ body {
     .card-item {
         margin: -8px -3px -1px -3px;
     }
+}
+
+/* Extra Large screens (xl) */
+@media (min-width: 1200px) and (max-width: 1399.98px) { /* This max-width is for Bootstrap 5 only */
+    * {
+        font-size: 22px; /* Sample value, adjust as needed */
+    }
+
+    .card-item {
+        margin: -10px -3.5px -1.5px -3.5px; /* Sample adjustment */
+    }
+}
+
+/* Extra Extra Large screens (xxl, Bootstrap 5 only) */
+@media (min-width: 1400px) {
+    * {
+        font-size: 24px; /* Sample value, adjust as needed */
+    }
+
+    .card-item {
+        margin: -12px -4px -2px -4px; /* Sample adjustment */
+    }
+}
+
+.chip-tray {
+    background-image: url(/images/chip-tray.png);
+    background-size: auto;
 }

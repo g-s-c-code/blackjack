@@ -2,13 +2,22 @@
 @using blackjack.Structs;
 <PageTitle>Blackjack</PageTitle>
 
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <h1 class="m-0 fs-2 text-primary"><span class="display-6 text-danger">B</span>lack<span class="display-6 text-danger">J</span>ack</h1>
+        </div>
+    </div>
+</div>
 <div class="container-fluid game-container-1">
     <div class="row">
         <div class="col-4 text-start">
             <small class="">Win Streak: @winStreak</small>
         </div>
         <div class="col-4 font-monospace">
-            <h1 class="m-0 fs-2 text-black fw-bold"><span class="display-6 text-danger">B</span>lack<span class="display-6 text-danger">j</span>ack</h1>
+            <div class="w-100 mt-3">
+                <img src="/images/chip-tray.png" class="w-50 rounded"/>
+            </div>
             <small class="text-warning m-0" style="letter-spacing: 0.2rem;">PAYS 3 10 2</small>
         </div>
         <div class="col-4 text-end p-0">
@@ -21,24 +30,14 @@
 
 <div class="container-fluid game-container-2">
     <div class="row d-flex justify-content-center align-items-center">
-        <div class="col-4">
 
-            <div class="row m-3 p-2">
-                <div class="col-2"></div>
-                <div class="col-10 d-flex">
-                </div>
-            </div>
-            <div class="row m-3 p-2">
-                <div class="col-2"></div>
-                <div class="col-10 d-flex">
-                </div>
-            </div>
+        <div class="col-4">
 
         </div>
 
         <div class="col-4">
 
-            <div class="row mt-1">
+            <div class="row">
                 <div class="col">
                     <div class="d-inline-block">
                         <h6 class="m-1 text-danger">Dealer</h6>
@@ -46,7 +45,7 @@
                         @foreach (var card in dealerCards)
                         {
                             <div class="card-container m-1">
-                                <span class="card-item display-3 @(Array.IndexOf(unicodeCards, card.Symbol) >= 13 && Array.IndexOf(unicodeCards, card.Symbol) <= 38 ? "text-danger" : "text-black")">@card.Symbol</span>
+                                <span class="card-item display-1 @(Array.IndexOf(unicodeCards, card.Symbol) >= 13 && Array.IndexOf(unicodeCards, card.Symbol) <= 38 ? "text-danger" : "text-black")">@card.Symbol</span>
                             </div>
                         }
                     </div>
@@ -63,7 +62,7 @@
                         @foreach (var card in playerCards)
                         {
                             <div class="card-container m-1">
-                                <span class="card-item display-3 @(Array.IndexOf(unicodeCards, card.Symbol) >= 13 && Array.IndexOf(unicodeCards, card.Symbol) <= 38 ? "text-danger" : "text-black")">@card.Symbol</span>
+                                <span class="card-item display-1 @(Array.IndexOf(unicodeCards, card.Symbol) >= 13 && Array.IndexOf(unicodeCards, card.Symbol) <= 38 ? "text-danger" : "text-black")">@card.Symbol</span>
                             </div>
                         }
 
