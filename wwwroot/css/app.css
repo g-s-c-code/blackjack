@@ -1,10 +1,20 @@
+/* General Styling */
 body {
     font-family: Verdana, sans-serif;
     background-color: #222;
-    margin: 1rem 3rem 3rem 3rem;
-
+    margin: 1rem;
 }
 
+li, strong {
+    font-size: 14px;
+    padding-bottom: 2px;
+}
+
+.shadow-slim {
+    text-shadow: -1px -1px black;
+}
+
+/* Specific Styling */
 #blazor-error-ui {
     background: lightyellow;
     bottom: 0;
@@ -17,22 +27,11 @@ body {
     z-index: 1000;
 }
 
-    #blazor-error-ui .dismiss {
-        cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 0.5rem;
-    }
-
 .blazor-error-boundary {
     background: no-repeat 1rem/1.8rem, #b32121;
     padding: 1rem 1rem 1rem 3.7rem;
     color: white;
 }
-
-    .blazor-error-boundary::after {
-        content: "An error has occurred.";
-    }
 
 .loading-progress {
     position: relative;
@@ -42,18 +41,100 @@ body {
     margin: 20vh auto 1rem auto;
 }
 
-    .loading-progress circle {
-        fill: none;
-        stroke: #e0e0e0;
-        stroke-width: 0.6rem;
-        transform-origin: 50% 50%;
-        transform: rotate(-90deg);
-    }
+.card-container {
+    display: inline-block;
+    transform-origin: center;
+    transform-style: preserve-3d;
+    transition: transform 0.3s, z-index 1s;
+    position: relative;
+    z-index: 0;
+    background-color: ivory;
+    margin: 0px;
+    padding: 0px;
+}
 
-        .loading-progress circle:last-child {
-            stroke: #1b6ec2;
-            transition: stroke-dasharray 0.05s ease-in-out;
-        }
+.card-item {
+    display: block;
+    line-height: 1;
+    border-radius: 5px;
+    color: #333;
+    cursor: pointer;
+}
+
+.game-container-1, .game-container-2 {
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: bold;
+}
+
+.game-container-1 {
+    height: 20vh;
+    background-image: linear-gradient(360deg, #2b4b34, #19301e);
+    border: 5px ridge Sienna;
+    border-radius: 7px 7px 0px 0px;
+    border-bottom: none;
+}
+
+.game-container-2 {
+    height: 70vh;
+    background-image: linear-gradient(180deg, #2b4b34, #19301e);
+    border: 5px ridge Sienna;
+    border-top: none;
+    border-bottom-right-radius: 750px;
+    border-bottom-left-radius: 750px;
+}
+
+.game-button {
+    border: 3px ridge Sienna;
+    background: radial-gradient(#A0522D, saddlebrown, #703E04);
+    color: antiquewhite;
+    height: 1.8rem;
+    line-height: 1rem;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.instruction-button {
+    color: azure;
+    background-color: transparent;
+    border-radius: 50%;
+    border: none;
+    height: 0rem;
+}
+
+.chip-tray {
+    width: 50%;
+}
+
+/* Nested Rules */
+#blazor-error-ui .dismiss {
+    cursor: pointer;
+    position: absolute;
+    right: 0.75rem;
+    top: 0.5rem;
+}
+
+.blazor-error-boundary::after {
+    content: "An error has occurred.";
+}
+
+.loading-progress circle {
+    fill: none;
+    stroke: #e0e0e0;
+    stroke-width: 0.6rem;
+    transform-origin: 50% 50%;
+    transform: rotate(-90deg);
+}
+
+    .loading-progress circle:last-child {
+        stroke: #1b6ec2;
+        transition: stroke-dasharray 0.05s ease-in-out;
+    }
 
 .loading-progress-text {
     position: absolute;
@@ -66,75 +147,17 @@ body {
         content: var(--blazor-load-percentage-text, "Loading");
     }
 
-.card-container {
-    display: inline-block;
-    transform-origin: center;
-    transform-style: preserve-3d;
-    transition: transform 0.3s, z-index 1s;
-    position: relative;
-    z-index: 0;
-    background-color: #fff;
-    margin: 0px;
-    padding: 0px;
-}
-
 .card-container:hover {
     transform: rotate(-5deg) translateY(-30px) scale(2);
     z-index: 1;
 }
 
-.card-item {
-    display: block;
-    line-height: 1;
-    border-radius: 5px;
-    color: #333;
-}
-
-.game-container-1 {
-    height: 20vh;
-    background-image: linear-gradient(360deg, #2b4b34, #19301e);
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: bold;
-    border: 5px ridge Sienna;
-    border-radius: 7px 7px 0px 0px;
-    border-bottom: none;
-}
-
-.game-container-2 {
-    height: 70vh;
-    background-image: linear-gradient(180deg, #2b4b34, #19301e);
-    color: white;
-    text-transform: uppercase;
-    text-align: center;
-    font-weight: bold;
-    border: 5px ridge Sienna;
-    border-top: none;
-    border-bottom-right-radius: 750px;
-    border-bottom-left-radius: 750px;
-}
-
-.game-button {
+.game-button:hover {
     border: 3px ridge Sienna;
-    background: radial-gradient(#A0522D, saddlebrown, #703E04);
-    height: 2rem;
-    font-size: 12px;
-    color: #aaa;
-    font-weight: bold;
-    text-transform: uppercase;
-    box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.3); /* Shadow in the top-left corner */
-    transition: all 0.3s ease;
-    cursor: pointer;
-    padding: 10px 20px;
+    color: #fff;
+    background: linear-gradient(to bottom, #A0522D, saddlebrown, #703E04);
+    box-shadow: -3px -3px 8px rgba(0, 0, 0, 0.4);
 }
-
-    .game-button:hover {
-        border: 3px ridge Sienna;
-        background: linear-gradient(to bottom, #A0522D, saddlebrown, #703E04);
-        box-shadow: -3px -3px 8px rgba(0, 0, 0, 0.4); /* Slightly larger shadow on hover */
-    }
-
 
 /* Extra Small screens (xs) */
 @media (max-width: 575.98px) {
@@ -145,6 +168,11 @@ body {
     .card-item {
         margin: -3.5px -1.5px -0.5px -1.5px;
     }
+
+    .chip-tray {
+        max-width: 150px;
+    }
+
 }
 
 /* Small screens (sm) */
@@ -156,6 +184,10 @@ body {
     .card-item {
         margin: -5px -1.5px -0.5px -1.5px;
     }
+
+    .chip-tray {
+        max-width: 200px;
+    }
 }
 
 /* Medium screens (md) */
@@ -165,7 +197,11 @@ body {
     }
 
     .card-item {
-        margin: -6px -2px -1px -2px; /* Sample adjustment */
+        margin: -6px -2px -0.5px -2px; /* Sample adjustment */
+    }
+
+    .chip-tray {
+        max-width: 250px;
     }
 }
 
@@ -178,6 +214,10 @@ body {
     .card-item {
         margin: -7px -3px -1px -3px;
     }
+
+    .chip-tray {
+        max-width: 300px;
+    }
 }
 
 /* Extra Large screens (xl) */
@@ -189,6 +229,9 @@ body {
     .card-item {
         margin: -10px -3.5px -1.5px -3.5px; /* Sample adjustment */
     }
+    .chip-tray {
+        max-width: 400px;
+    }
 }
 
 /* Extra Extra Large screens (xxl, Bootstrap 5 only) */
@@ -198,11 +241,10 @@ body {
     }
 
     .card-item {
-        margin: -12px -4px -2px -4px; /* Sample adjustment */
+        margin: -11px -4px -2px -4px; /* Sample adjustment */
     }
-}
 
-.chip-tray {
-    background-image: url(/images/chip-tray.png);
-    background-size: auto;
+    .chip-tray {
+        max-width: 500px;
+    }
 }

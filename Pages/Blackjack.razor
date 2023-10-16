@@ -2,42 +2,39 @@
 @using blackjack.Structs;
 <PageTitle>Blackjack</PageTitle>
 
-<div class="container">
-    <div class="row">
-        <div class="col text-center">
-        </div>
-    </div>
-</div>
 <div class="container-fluid game-container-1">
     <div class="row">
-        <div class="col-4 text-start text-warning">
+        <div class="col-2 text-start text-warning">
             <div class="row">
-                <small class="text-warning font-monospace opacity-75 m-0">Win Streak: @winStreak</small>
+                <small class="font-monospace opacity-75 shadow-slim text-nowrap m-0" style="color: azure;">Win Streak: @winStreak</small>
             </div>
             <div class="row">
-                <small class="text-warning font-monospace opacity-75 m-0">Win Rate: @winStreak</small>
+                <small class="font-monospace opacity-75 shadow-slim text-nowrap m-0" style="color: azure;">Win Rate: @WinRate()</small>
             </div>
         </div>
-        <div class="col-4">
-            <div class="w-100 mt-1">
-                <img src="/images/chip-tray.png" class="w-25 rounded" />
+        <div class="col-8 ">
+            <div class="mt-1">
+                <img src="/images/chips-and-card-decks.png" class="chip-tray mt-1" />
             </div>
-            <small class="text-warning font-monospace opacity-25 m-0" style="letter-spacing: 0.2rem;">PAYS 3 10 2</small>
         </div>
-        <div class="col-4 text-end p-0">
-            <button @onclick="ToggleInstructions" class="btn btn-sm game-button m-1">
-                @(showInstructions ? "Hide" : "Instructions")
+        <div class="col-2 text-end p-0">
+            <button @onclick="ToggleInstructions" class="instruction-button opacity-75 m-1 @(showInstructions ? "bi-x-lg" : "bi-info-circle-fill")">
             </button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <small class="text-warning font-monospace opacity-25 m-0" style="letter-spacing: 0.2rem;">PAYS 3 10 2</small>
         </div>
     </div>
 </div>
 
 <div class="container-fluid game-container-2">
     <div class="row d-flex justify-content-center align-items-center">
-        <div class="row mt-3">
+        <div class="row mt-4">
             <div class="col-4 d-flex justify-content-end align-items-center">
-                <h6 class="m-1 text-danger fw-bold opacity-75">Dealer: </h6>
-                <h6 class="m-1 text-danger fw-bold opacity-75">@dealerScore </h6>
+                <h6 class="m-1 fw-bold text-danger opacity-75 shadow-slim">Dealer:</h6>
+                <h6 class="m-1 fw-bold text-danger opacity-75 shadow-slim">@dealerScore</h6>
             </div>
             <div class="col-4">
                 <div class="d-inline-block">
@@ -50,19 +47,26 @@
                     }
                 </div>
             </div>
-            <div class="col-4 d-flex justify-content-start align-items-center">
-                <h5 class="text-white">@winner</h5>
+            <div class="col-4">
             </div>
         </div>
         <div class="row">
             <div class="col d-flex justify-content-center">
-                <h1 class="m-0 fs-5 text-muted opacity-50 p-1"> - <i class="bi-suit-spade-fill fs-5"></i> - <i class="bi-suit-heart-fill fs-5 text-danger opacity-50"></i> - <span class="fs-4">B</span>lack<span class="fs-4">J</span>ack - <i class="bi-suit-diamond-fill fs-5 text-danger opacity-50"></i> - <i class="bi-suit-club-fill fs-5"></i> - </h1>
+                @if (string.IsNullOrEmpty(winner))
+                {
+                    <h2 class="m-0 fs-6 text-muted opacity-50 p-1"> - <i class="bi-suit-spade-fill fs-6"></i> - <i class="bi-suit-heart-fill fs-6 text-danger opacity-50"></i> - BlackJack - <i class="bi-suit-diamond-fill fs-6 text-danger opacity-50"></i> - <i class="bi-suit-club-fill fs-6"></i> - </h2>
+                }
+                else
+                {
+                    <h2 class="m-0 fs-6 opacity-75 p-1" style="color: antiquewhite;">@winner</h2>
+                }
+
             </div>
         </div>
         <div class="row">
             <div class="col-4 d-flex justify-content-end align-items-center">
-                <h6 class="m-1 text-black fw-bold opacity-75">Player:</h6>
-                <h6 class="m-1 text-black fw-bold opacity-75">@playerScore</h6>
+                <h6 class="m-1 fw-bold text-primary opacity-75 shadow-slim" style="color: antiquewhite;">Player:</h6>
+                <h6 class="m-1 fw-bold text-primary opacity-75 shadow-slim" style="color: antiquewhite;">@playerScore</h6>
             </div>
             <div class="col-4">
                 <div class="d-inline-block">
@@ -78,16 +82,16 @@
             </div>
         </div>
     </div>
-    <div class="row mt-5">
+    <div class="row mt-3">
         <div class="col text-center m-1">
             @if (!stay)
             {
-                <button class="btn btn-sm game-button" @onclick="(() => DealCard(ref playerCards, PlayerTypes.Player))">Hit</button>
-                <button class="btn btn-sm game-button" @onclick="Stay">Stand</button>
+                <button class="btn btn-sm game-button shadow-slim" @onclick="(() => DealCard(ref playerCards, PlayerTypes.Player))">Hit</button>
+                <button class="btn btn-sm game-button shadow-slim" @onclick="Stay">Stand</button>
             }
             else
             {
-                <button class="btn btn-sm btn-success game-button" @onclick="NewGame">New Game</button>
+                <button class="btn btn-sm btn-success game-button shadow-slim" @onclick="NewGame">New Game</button>
             }
         </div>
     </div>
@@ -98,24 +102,29 @@
         <div class="col">
             @if (showInstructions)
             {
-                <h6 class="text-uppercase">Rules:</h6>
-                <ul class="text-nowrap">
-                    <li><strong>OBJECTIVE</strong>: Aim for a card total close to 21 but don't exceed it.</li>
-                    <li><strong>VALUES</strong>: Cards 2-10 are face value, face cards are 10, and Aces are 1 or 11.</li>
-                    <li><strong>DEAL</strong>: Players are dealt two cards, one hidden. The dealer is dealt two cards with one exposed.</li>
-                    <li><strong>HIT OR STAND</strong>: Players can 'hit' for an additional card or 'stand' to keep their current total. Going over 21 results in a 'bust'.</li>
-                    <li><strong>DEALERS TURN</strong>: The dealer reveals the hidden card and must 'hit' until they have 17 or more.</li>
-                    <li><strong>HOW TO WIN</strong>: Beat the dealer by having a higher total without busting. If the dealer busts, you win. Ties result in a push.</li>
-                </ul>
-                <p class="lead">Dive in, play smart, and may the odds be ever in your favor!</p>
+                <div class="d-flex align-items-center justify-content-center w-100 h-100 position-fixed top-0 start-0 bg-dark bg-opacity-50">
+                    <div class="rounded shadow-sm p-3" style="color: #333; background-color: antiquewhite; border: 3px ridge Sienna;">
+                        <h6>Instructions</h6>
+                        <ul class="list-unstyled">
+                            <li><strong>Objective:</strong> Aim for a card total near 21, but not over.</li>
+                            <li><strong>Values:</strong> Cards 2-10 are at face value. Face cards are 10; Aces are 1 or 11.</li>
+                            <li><strong>Deal:</strong> Players get two cards; one's hidden. The dealer gets two cards; one's shown.</li>
+                            <li><strong>Play:</strong> Players 'hit' for more cards or 'stand'. Over 21 is a 'bust'.</li>
+                            <li><strong>Dealer's Turn:</strong> The dealer shows the hidden card and 'hits' till they have 17+.</li>
+                            <li><strong>Win:</strong> Have a higher total without busting. If the dealer busts, you win. Ties push.</li>
+                        </ul>
+                        <p>Dive in, play wisely, and good luck!</p>
+                        <button @onclick="ToggleInstructions" class="btn btn-sm game-button shadow-slim">Close</button>
+                    </div>
+                </div>
             }
         </div>
     </div>
 </div>
 
 @code {
-    private void ToggleInstructions() => showInstructions = !showInstructions;
     private bool showInstructions = false;
+    private void ToggleInstructions() => showInstructions = !showInstructions;
 
     string[] unicodeCards = new string[]
     {
@@ -125,6 +134,8 @@
         "🃑", "🃒", "🃓", "🃔", "🃕", "🃖", "🃗", "🃘", "🃙", "🃚", "🃛", "🃝", "🃞"   // Clubs
     };
 
+    private int totalGamesPlayed = 0;
+    private int totalWins = 0;
     private const int numberOfCards = 52;
     private bool stay = false;
     private Card[] deck = new Card[numberOfCards];
@@ -249,9 +260,11 @@
 
     void DetermineWinner()
     {
+        totalGamesPlayed++;
+                
         if (result == Results.Blackjack && playerScore == 21 && playerCards.Length == 2)
         {
-            winner = "Blackjack! Player's natural win.";
+            winner = "Blackjack! Player wins.";
             winStreak++;
         }
         else if (result == Results.Blackjack && dealerScore == 21 && dealerCards.Length == 2)
@@ -261,12 +274,12 @@
         }
         else if (result == Results.PlayerLost)
         {
-            winner = "Player busts! Dealer wins.";
+            winner = "Player Busts! Dealer wins.";
             winStreak = 0;
         }
         else if (result == Results.DealerLost)
         {
-            winner = "Dealer busts! Player wins.";
+            winner = "Dealer Busts! Player wins.";
             winStreak++;
         }
         else if (playerScore > dealerScore)
@@ -281,8 +294,20 @@
         }
         else
         {
-            winner = "Push.";
+            winner = "Push!";
         }
+
+        if ((playerScore > dealerScore && result != Results.PlayerLost) || result == Results.Blackjack || result == Results.DealerLost)
+        {
+            totalWins++; // Increment totalWins when the player wins
+        }
+
+    }
+
+    private string WinRate()
+    {
+        if (totalGamesPlayed == 0) return "0%";
+        return $"{((double)totalWins / totalGamesPlayed) * 100:0.0}%"; // Returns the win rate as a percentage
     }
 
 
