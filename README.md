@@ -4,9 +4,9 @@
 This game is designed using Blazor and follows the traditional rules of Blackjack. The responsive UI provides a clean and intuitive gaming experience, with a focus on aesthetics and functionality.
 
 ### Screens
-| **Game Interface:** | **Responsive Design** | **Instructions Overlay:** | **Statistics Display:** |
+| **Game Interface:** | **Responsive Design:** | **Instructions Overlay:** | **Statistics Display:** |
 |:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
-| ![Main Game Interface](https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot0.png) | ![Responsive Design](https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot1.png) | ![Instructions Overlay](https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot2.png) |![Statistics Display](https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot3.png) |
+| <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot0.png" alt="Foundational C# Certification" width="230" height="140"/> | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot1.png" alt="Foundational C# Certification" width="230" height="140"/> | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot2.png" alt="Foundational C# Certification" width="230" height="140"/> | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot3.png" alt="Foundational C# Certification" width="230" height="140"/> |
 
 ### Features
 1. **Statistics Display:** The top-left corner of the game interface displays your current win streak and overall win rate.
