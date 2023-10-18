@@ -4,7 +4,7 @@
 This game is designed using Blazor WebAssembly and follows the traditional rules of Blackjack. The responsive UI provides a clean and intuitive gaming experience, with a focus on aesthetics and functionality.
 
 ## Preview (click to enlarge)
-| **Game Interface:** | **Responsive Design:** | **Instructions Overlay:** | **Display Winner Message:** |
+| **Interface** | **Responsive Design** | **Instructions Overlay** | **Winner Message** |
 |:-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:|
 | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot0.png" width="230" height="140"/> | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot1.png" width="230" height="140"/> | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot2.png" width="230" height="140"/> | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/Screenshot3.png" width="230" height="140"/> |
 
