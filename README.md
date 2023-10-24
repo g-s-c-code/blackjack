@@ -6,7 +6,7 @@ This game is designed using Blazor WebAssembly and follows the traditional rules
 ## Preview (click to enlarge)
 | **Interface** | **Responsive Design** | **Instructions** |
 |:-------------------------:|:-------------------------:|:-------------------------:|
-| <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/screenshot0.png" width="280" height="140"/> | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/screenshot1.png" width="280" height="140"/> | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/screenshots/screenshot2.png" width="280" height="140"/> |
+| <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/Screenshots/screenshot0.png" width="280" height="140"/> | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/Screenshots/screenshot1.png" width="280" height="140"/> | <a target="_blank" rel="noreferrer"> <img src="https://github.com/G-C-Code/blackjack/blob/main/wwwroot/images/Screenshots/screenshot2.png" width="280" height="140"/> |
 
 ## Features
 1. **Statistics Display:** The top-left corner of the game interface displays your current win streak and overall win rate.
